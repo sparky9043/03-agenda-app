@@ -17,15 +17,17 @@ void describe('GET Requests', () => {
 
     console.log(response.body);
     
+    assert.strictEqual(response.type, 'application/json');
     assert.strictEqual(1, 1);
   });
-
+  
   void test('/api/tasks/:id returns single task', async () => {
     const response = await api
       .get(`${baseUrl}/1`)
       .expect(200);
-    
+      
       console.log(response.body);
+    assert.strictEqual(response.type, 'application/json');
     assert.strictEqual(1, 1);
   });
 });
