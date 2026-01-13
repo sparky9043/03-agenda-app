@@ -1,13 +1,20 @@
-import { test, after, describe } from 'node:test';
+import { test, after, describe, beforeEach } from 'node:test';
 import assert from 'node:assert';
 import pool from '../db/pool';
 import app from '../app';
 import supertest from 'supertest';
+import helper from './helper';
 
 const api = supertest(app);
 const baseUrl = '/api/tasks';
 
-// beforeEach()
+beforeEach(async () => {
+  await helper.resetTasks();
+  for (const task of helper.defaultTasks) {
+    const { title, description, userid } = task;
+    await helper.addTask(title, description, userid);
+  }
+});
 
 void describe('GET Requests', () => {
   void test('/api/tasks returns list of tasks', async () => {

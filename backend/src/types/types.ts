@@ -3,7 +3,7 @@ interface BaseTask {
   description: string;
 }
 
-interface NewTaskEntry extends BaseTask {
+export interface NewTaskEntry extends BaseTask {
   userid: number;
 }
 

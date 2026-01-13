@@ -1,3 +1,5 @@
+import pool from "../db/pool";
+
 // task helper
 const defaultTasks = [
   {
@@ -17,6 +19,24 @@ const defaultTasks = [
   },
 ];
 
+const resetTasks = async () => {
+  await pool.query(
+    'TRUNCATE TABLE task_list RESTART IDENTITY'
+  );
+};
+
+const addTask = async (title: string, description: string, userid: number) => {
+  await pool.query(
+    `
+      INSERT INTO task_list (title, description, userid) VALUES
+      ($1, $2, $3);
+    `,
+    [title, description, Number(userid)],
+  );
+};
+
 export default {
   defaultTasks,
-}
+  resetTasks,
+  addTask,
+};
