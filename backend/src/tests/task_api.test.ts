@@ -1,11 +1,13 @@
-import { test, after, describe } from 'node:test';
+import { test, after, describe, beforeEach } from 'node:test';
 import assert from 'node:assert';
 import pool from '../db/pool';
 import app from '../app';
 import supertest from 'supertest';
 
 const api = supertest(app);
-const baseUrl = '/api/tasks'
+const baseUrl = '/api/tasks';
+
+// beforeEach()
 
 void describe('GET Requests', () => {
   void test('/api/tasks', async () => {
