@@ -4,6 +4,7 @@ import pool from '../db/pool';
 import app from '../app';
 import supertest from 'supertest';
 import helper from './helper';
+import { Task } from '../types/types';
 
 const api = supertest(app);
 const baseUrl = '/api/tasks';
@@ -49,8 +50,10 @@ void describe('POST Requests', () => {
       .send(newTask)
       .expect(201);
 
-    console.log(response.body);
-    assert.strictEqual(1, 1);
+    assert.ok(response.body && typeof response.body === 'object');
+
+    const createdTask = response.body as Task;
+    assert.strictEqual(createdTask.title, newTask.title);
   });
 });
 
