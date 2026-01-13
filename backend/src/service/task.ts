@@ -3,6 +3,10 @@ import { Task } from "../types/types";
 
 const getTasks = async (): Promise<Task[]>  => {
   return await tasksRepository.getTasksFromDb();
-}
+};
 
-export default { getTasks };
+const getTaskById = async (id: number): Promise<Task> => {
+  return await tasksRepository.getTaskByIdFromDb(id);
+};
+
+export default { getTasks, getTaskById };

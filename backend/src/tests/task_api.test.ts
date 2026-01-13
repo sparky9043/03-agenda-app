@@ -10,13 +10,22 @@ const baseUrl = '/api/tasks';
 // beforeEach()
 
 void describe('GET Requests', () => {
-  void test('/api/tasks', async () => {
+  void test('/api/tasks returns list of tasks', async () => {
     const response = await api
-    .get(baseUrl)
-    .expect(200);
+      .get(baseUrl)
+      .expect(200);
 
     console.log(response.body);
     
+    assert.strictEqual(1, 1);
+  });
+
+  void test('/api/tasks/:id returns single task', async () => {
+    const response = await api
+      .get(`${baseUrl}/1`)
+      .expect(200);
+    
+      console.log(response.body);
     assert.strictEqual(1, 1);
   });
 });
