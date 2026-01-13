@@ -35,6 +35,10 @@ const addTaskToDb = async (title: string, description: string, userid: number): 
     [title, description, Number(userid)],
   );
 
+  if (!response?.rows) {
+    throw new Error('task could not be added');
+  }
+
   return response.rows[0];
 };
 
