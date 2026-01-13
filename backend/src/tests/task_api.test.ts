@@ -39,6 +39,9 @@ void describe('GET Requests', () => {
 
 void describe('POST Requests', () => {
   void test('/api/tasks', async () => {
+    const tasksAtStart = await helper.tasksInDb();
+    assert.ok(Array.isArray(tasksAtStart));
+
     const newTask = {
       title: 'groceries',
       description: 'buy milk, eggs, and almonds',
@@ -49,11 +52,14 @@ void describe('POST Requests', () => {
       .post(baseUrl)
       .send(newTask)
       .expect(201);
+    
+    const tasksAtEnd = await helper.tasksInDb();
+    assert.ok(Array.isArray(tasksAtEnd));
 
     assert.ok(response.body && typeof response.body === 'object');
-
     const createdTask = response.body as Task;
     assert.strictEqual(createdTask.title, newTask.title);
+    assert.strictEqual(tasksAtEnd.length, tasksAtStart.length + 1);
   });
 });
 
