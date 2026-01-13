@@ -14,4 +14,9 @@ task.get('/:id', async (req: Request<{ id: string }>, res: Response<Task>) => {
   res.json(savedTask);
 });
 
+task.post('/', (_req, res) => {
+  // const savedTask = await taskService.addTask(req.body);
+  res.status(201).json({ success: 'success' });
+});
+
 export default task;

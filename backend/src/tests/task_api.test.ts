@@ -2,7 +2,7 @@ import { test, after, describe, beforeEach } from 'node:test';
 import assert from 'node:assert';
 import pool from '../db/pool';
 import app from '../app';
-import supertest, { Response } from 'supertest';
+import supertest from 'supertest';
 import helper from './helper';
 
 const api = supertest(app);
@@ -18,7 +18,7 @@ beforeEach(async () => {
 
 void describe('GET Requests', () => {
   void test('/api/tasks returns list of tasks', async () => {
-    const response: Response = await api
+    const response = await api
       .get(baseUrl)
       .expect(200);
 
@@ -33,6 +33,23 @@ void describe('GET Requests', () => {
       .expect(200);
       
     assert.strictEqual(response.type, 'application/json');
+  });
+});
+
+void describe('POST Requests', () => {
+  void test('/api/tasks', async () => {
+    const newTask = {
+      title: 'groceries',
+      description: 'buy milk, eggs, and almonds',
+      userid: 2,
+    };
+
+    const response = await api
+      .post(baseUrl)
+      .send(newTask)
+      .expect(201);
+
+    console.log(response.body);
     assert.strictEqual(1, 1);
   });
 });
