@@ -1,4 +1,4 @@
-import { test, after, describe, beforeEach } from 'node:test';
+import { test, after, describe } from 'node:test';
 import assert from 'node:assert';
 import pool from '../db/pool';
 import app from '../app';
