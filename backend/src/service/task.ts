@@ -1,5 +1,5 @@
 import tasksRepository from "../repository/tasks.repository";
-import { Task } from "../types/types";
+import { NewTaskEntry, Task } from "../types/types";
 
 const getTasks = async (): Promise<Task[]>  => {
   return await tasksRepository.getTasksFromDb();
@@ -9,4 +9,9 @@ const getTaskById = async (id: number): Promise<Task> => {
   return await tasksRepository.getTaskByIdFromDb(id);
 };
 
-export default { getTasks, getTaskById };
+const addTask = async (newTaskObject: NewTaskEntry): Promise<Task> => {
+  const { title, description, userid } = newTaskObject;
+  return await tasksRepository.addTaskToDb(title, description, userid);
+};
+
+export default { getTasks, getTaskById, addTask };

@@ -1,6 +1,6 @@
 import { Request, Response, Router } from "express";
 import taskService from '../service/task';
-import { Task } from "../types/types";
+import { NewTaskEntry, Task } from "../types/types";
 
 const task = Router();
 
@@ -14,9 +14,9 @@ task.get('/:id', async (req: Request<{ id: string }>, res: Response<Task>) => {
   res.json(savedTask);
 });
 
-task.post('/', (_req, res) => {
-  // const savedTask = await taskService.addTask(req.body);
-  res.status(201).json({ success: 'success' });
+task.post('/', async (req: Request<unknown, unknown, NewTaskEntry>, res: Response<Task>) => {
+  const savedTask = await taskService.addTask(req.body);
+  res.status(201).json(savedTask);
 });
 
 export default task;

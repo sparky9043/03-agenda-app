@@ -26,4 +26,16 @@ const getTaskByIdFromDb = async (id: number): Promise<Task> => {
   return response.rows[0];
 };
 
-export default { getTasksFromDb, getTaskByIdFromDb };
+const addTaskToDb = async (title: string, description: string, userid: number): Promise<Task> => {
+  const response = await pool.query<Task>(
+    `
+      INSERT INTO task_list (title, description, userid) VALUES
+      ($1, $2, $3) RETURNING *;
+    `,
+    [title, description, Number(userid)],
+  );
+
+  return response.rows[0];
+};
+
+export default { getTasksFromDb, getTaskByIdFromDb, addTaskToDb };
